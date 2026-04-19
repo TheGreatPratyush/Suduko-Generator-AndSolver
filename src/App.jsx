@@ -1,8 +1,15 @@
 import { useState } from "react";
+import Frontpage from "./Frontpage";
+import "./table.css";
+
+
+
 
 const App = () => {
   const [grid, setGrid] = useState([]);
   const [originalGrid, setOriginalGrid] = useState([]);
+  const [showGame,setGame]=useState(false)
+  const [selectedCell, setSelectedCell] = useState(null);
 
   async function handleStartGame() {
     try {
@@ -10,8 +17,8 @@ const App = () => {
       const data = await result.json();
 
       setGrid(data.puzzle);
-      setOriginalGrid(data.puzzle); // store original
-
+      setOriginalGrid(data.puzzle); 
+      setGame(true)
     } catch (e) {
       console.error("error fetching", e);
     }
@@ -22,8 +29,9 @@ const App = () => {
 
     const newGrid = grid.map((row, rowIndex) =>
       row.map((c, colIndex) => {
+
         if (rowIndex === i && colIndex === j) {
-          return Number(value); // "" → 0 automatically
+          return Number(value); 
         } else {
           return c;
         }
@@ -33,47 +41,59 @@ const App = () => {
     setGrid(newGrid);
   }
 
+
+
+  function handleSelectionHighlight(i,j){
+    setSelectedCell({row:i,col:j})
+  }
+
+
+  function getCellClass(curretRow,currentCol){
+    if (selectedCell==null){
+      return ""
+    }
+    const {row,col}= selectedCell
+
+  if (curretRow === row && currentCol === col) {
+    return "selected";
+  }
+    if (curretRow==row || currentCol==col){
+      return "highlight"
+    }
+  
+    return ""
+
+  }
+
   return (
     <div>
-      <button onClick={handleStartGame}>Start Game</button>
-
-      <table style={{ marginTop: "20px", borderCollapse: "collapse" }}>
-        <tbody>
-          {grid.map((row, i) => (
-            <tr key={i}>
-              {row.map((cell, j) => (
-                <td
-                  key={j}
-                  style={{
-                    border: "1px solid black",
-                    width: "40px",
-                    height: "40px",
-                    textAlign: "center",
-                  }}
-                >
-                  {originalGrid[i] && originalGrid[i][j] === 0 ? (
-                    <input
-                      type="number"
-                      min={1}
-                      max={9}
-                      value={cell === 0 ? "" : cell}
-                      onChange={(e) => handleInputChange(e, i, j)}
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        textAlign: "center",
-                        border: "none",
-                      }}
-                    />
-                  ) : (
-                    cell
-                  )}
-                </td>
+      {!showGame?<Frontpage handleStartGame={handleStartGame} />:(
+      <div className="backgroundApp">
+          <table className="sudoku-table">
+            <tbody>
+              {grid.map((row, i) => (
+                <tr key={i}>
+                  {row.map((cell, j) => (
+                    <td key={j} className={`sudoku-cell ${getCellClass(i,j)}`} onClick={()=>{handleSelectionHighlight(i,j)}}>
+                      {originalGrid[i] && originalGrid[i][j] === 0 ? (
+                        <input
+                          type="number"
+                          min={1}
+                          max={9}
+                          value={cell === 0 ? "" : cell}
+                          onChange={(e) => handleInputChange(e, i, j)}
+                          className="sudoku-input"
+                        />
+                      ) : (
+                        <span className="fixed-cell">{cell}</span>
+                      )}
+                    </td>
+                  ))}
+                </tr>
               ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
+            </tbody>
+          </table>
+      </div>)}
     </div>
   );
 };
