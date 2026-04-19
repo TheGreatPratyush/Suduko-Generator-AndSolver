@@ -1,0 +1,129 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+.background {
+  height: 100vh;
+  background-image: url("./frontpage.png");
+  background-size: cover;
+  background-position: center;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 100px;
+}
+
+
+.buttonGame {
+  top: 18%;
+  padding: 14px 32px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: white;
+
+
+  backdrop-filter: blur(10px);
+
+
+  box-shadow: 
+    0 8px 20px rgba(0,0,0,0.3),
+    inset 0 0 10px rgba(255,255,255,0.2);
+
+  position: relative;
+  overflow: hidden;
+
+  transition: all 0.3s ease;
+
+
+  animation: glowPulse 2s infinite;
+}
+
+
+.playButton {
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+}
+
+.uploadSuduko {
+  background: linear-gradient(135deg, #ff7e5f, #ff3c00);
+}
+
+
+@keyframes glowPulse {
+  0% {
+    box-shadow: 
+      0 0 10px rgba(255,255,255,0.2),
+      0 8px 20px rgba(0,0,0,0.3);
+  }
+  50% {
+    box-shadow: 
+      0 0 25px rgba(255,255,255,0.9),
+      0 12px 30px rgba(0,0,0,0.4);
+  }
+  100% {
+    box-shadow: 
+      0 0 10px rgba(255,255,255,0.2),
+      0 8px 20px rgba(0,0,0,0.3);
+  }
+}
+
+
+.buttonGame:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 
+    0 0 35px rgba(255,255,255,1),
+    0 14px 35px rgba(0,0,0,0.5);
+}
+
+
+.buttonGame:active {
+  transform: scale(0.95);
+  box-shadow: inset 0 4px 10px rgba(0,0,0,0.6);
+}
+
+
+.buttonGame::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    rgba(255,255,255,0.2),
+    rgba(255,255,255,0.6),
+    rgba(255,255,255,0.2)
+  );
+  transform: skewX(-25deg);
+}
+
+.buttonGame:hover::before {
+  animation: shine 0.8s forwards;
+}
+
+@keyframes shine {
+  100% {
+    left: 125%;
+  }
+}
+
+.backgroundApp{
+  background-image: url("./appBackground.png");
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
