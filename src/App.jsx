@@ -15,10 +15,12 @@ const App = () => {
     try {
       const result = await fetch("http://127.0.0.1:8000/generate");
       const data = await result.json();
+
       console.log(data.solution)
 
       setSolvedGrid(data.solution);
       setGrid(data.puzzle);
+
       setOriginalGrid(data.puzzle);
 
       setWrongCells({});
@@ -56,7 +58,10 @@ const App = () => {
     } else {
       setChancesLeft(prev => {
         const next = prev - 1;
-        if (next === 0) alert("Game Over");
+        if (next === 0) {
+          alert("Game Over")
+          setGrid(solvedGrid)
+        };
         return next;
       });
 
