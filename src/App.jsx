@@ -11,28 +11,32 @@ const App = () => {
   const [chancesLeft, setChancesLeft] = useState(5);
   const [wrongCells, setWrongCells] = useState({});
 
-  async function handleStartGame() {
-    try {
-      const result = await fetch("http://127.0.0.1:8000/generate");
-      const data = await result.json();
+async function handleStartGame() {
+  try {
+    const response = await fetch(
+      "https://suduko-generator-andsolver.onrender.com/generate"
+    );
 
-      console.log(data.solution)
-
-      setSolvedGrid(data.solution);
-      setGrid(data.puzzle);
-
-      setOriginalGrid(data.puzzle);
-
-      setWrongCells({});
-      setChancesLeft(5);
-      setSelectedCell(null);
-
-      setGame(true);
-    } catch (e) {
-      console.error("error fetching", e);
+    if (!response.ok) {
+      throw new Error("Failed to fetch puzzle");
     }
-  }
 
+    const data = await response.json();
+
+    setSolvedGrid(data.solution);
+    setGrid(data.puzzle);
+    setOriginalGrid(data.puzzle);
+
+    setWrongCells({});
+    setChancesLeft(5);
+    setSelectedCell(null);
+
+    setGame(true);
+  } catch (error) {
+    console.error("Error fetching puzzle:", error);
+    alert("Backend not responding. Try again.");
+  }
+}
   function handleInputChange(e, i, j) {
     if (chancesLeft === 0) return;
 
