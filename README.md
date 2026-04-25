@@ -1,16 +1,75 @@
-# React + Vite
+# 🧩 Sudoku Generator & Solver
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, interactive Sudoku game built with **React** and a backend API for generating and solving puzzles.  
+Play Sudoku, test your logic, and enjoy a smooth UI with real-time validation and game feedback.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🌐 Live Demo
 
-## React Compiler
+https://suduko-generator-and-solver-cg24tgqv2.vercel.app/
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🚀 Features
 
-## Expanding the ESLint configuration
+- 🎮 Generate new Sudoku puzzles
+- 🧠 Real-time input validation
+- ❤️ Limited chances system (lives)
+- ❌ Wrong input highlighting
+- ✅ Correct cell highlighting
+- 💔 Game Over screen with retry option
+- 🔄 Restart game anytime
+- 🎨 Smooth animations & modern UI
+- 📱 Fully responsive (mobile friendly)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🛠️ Tech Stack
+
+**Frontend**
+- React (Hooks)
+- CSS (Custom styling + animations)
+
+**Backend**
+- FastAPI / Python (Sudoku generator & solver)
+
+---
+
+
+## 🎮 How to Play
+
+1. Click **Play**
+2. Fill empty cells with numbers (1–9)
+3. Each wrong input reduces a ❤️
+4. Game ends when chances reach 0
+5. Retry or go back to main screen
+
+---
+
+## ⚠️ Notes
+
+- Backend may take a few seconds to wake up (Render free tier)
+- Optimized UI for smooth gameplay experience
+- Real-time validation ensures correctness
+
+---
+
+## 🚧 Upcoming Features
+
+- 📤 Upload your own Sudoku (coming soon)
+- 🏆 Win detection screen
+- ⏱ Timer feature
+- 🎚 Difficulty levels
+- 📊 Score tracking
+- 🔊 Sound effects
+
+---
+
+## 👨‍💻 Author
+
+**Pratyush Gupta**
+
+- GitHub: https://github.com/TheGreatPratyush
+
+
+---
