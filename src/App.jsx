@@ -10,33 +10,37 @@ const App = () => {
   const [solvedGrid, setSolvedGrid] = useState([]);
   const [chancesLeft, setChancesLeft] = useState(5);
   const [wrongCells, setWrongCells] = useState({});
+  const [gameOver, setGameOver] = useState(false); // ✅ ADDED
 
-async function handleStartGame() {
-  try {
-    const response = await fetch(
-      "https://suduko-generator-andsolver.onrender.com/generate"
-    );
+  async function handleStartGame() {
+    try {
+      setGameOver(false); 
 
-    if (!response.ok) {
-      throw new Error("Failed to fetch puzzle");
+      const response = await fetch(
+        "https://suduko-generator-andsolver.onrender.com/generate"
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch puzzle");
+      }
+
+      const data = await response.json();
+
+      setSolvedGrid(data.solution);
+      setGrid(data.puzzle);
+      setOriginalGrid(data.puzzle);
+
+      setWrongCells({});
+      setChancesLeft(5);
+      setSelectedCell(null);
+
+      setGame(true);
+    } catch (error) {
+      console.error("Error fetching puzzle:", error);
+      alert("Backend not responding. Try again.");
     }
-
-    const data = await response.json();
-
-    setSolvedGrid(data.solution);
-    setGrid(data.puzzle);
-    setOriginalGrid(data.puzzle);
-
-    setWrongCells({});
-    setChancesLeft(5);
-    setSelectedCell(null);
-
-    setGame(true);
-  } catch (error) {
-    console.error("Error fetching puzzle:", error);
-    alert("Backend not responding. Try again.");
   }
-}
+
   function handleInputChange(e, i, j) {
     if (chancesLeft === 0) return;
 
@@ -62,10 +66,12 @@ async function handleStartGame() {
     } else {
       setChancesLeft(prev => {
         const next = prev - 1;
+
         if (next === 0) {
-          alert("Game Over")
-          setGrid(solvedGrid)
-        };
+          setGameOver(true); 
+          setGrid(solvedGrid);
+        }
+
         return next;
       });
 
@@ -114,10 +120,31 @@ async function handleStartGame() {
         <Frontpage handleStartGame={handleStartGame} />
       ) : (
         <div className="backgroundApp">
-          
-          <div style={{ fontSize: "24px", marginBottom: "10px" } } className="hearts">
+
+         
+          <div style={{ fontSize: "24px", marginBottom: "10px" }} className="hearts">
             {"❤️".repeat(chancesLeft)}
           </div>
+
+
+          {gameOver && (
+            <div className="game-over-overlay">
+              <div className="game-over-box">
+                <h2>Game Over 💔</h2>
+
+                <button onClick={handleStartGame}>
+                  Retry 🔄
+                </button>
+
+                <button onClick={() => {
+                  setGame(false);
+                  setGameOver(false);
+                }}>
+                  Go Back ⬅️
+                </button>
+              </div>
+            </div>
+          )}
 
           <table className="sudoku-table">
             <tbody>

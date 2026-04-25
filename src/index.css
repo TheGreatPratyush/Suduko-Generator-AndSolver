@@ -127,3 +127,14 @@
 
 }
 
+@media (max-width: 768px) {
+  .background {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .buttonGame {
+    padding: 12px 24px;
+    font-size: 14px;
+  }
+}
