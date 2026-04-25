@@ -1,6 +1,5 @@
 import React from 'react'
 import "./index.css"
-
 const Frontpage = ({handleStartGame}) => {
   return (
     <div className="background">
@@ -10,7 +9,6 @@ const Frontpage = ({handleStartGame}) => {
 
       }}>Play Suduko</button>
       <button className='uploadSuduko buttonGame'>Upload Suduko</button>
-      <audio src="./audiogaming.mp3" autoPlay loop ></audio>
     </div>
   )
 }
